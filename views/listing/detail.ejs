@@ -1,0 +1,74 @@
+<%layout("/layout/boilerplate")-%>
+<body>
+  <a class=".icon-a" href="/listing"><i class="fa-solid fa-arrow-left"></i></a>
+  <div class=".Card-parent row row-cols-lg-10">
+    <h3 class="offset-1">
+      <%=data.tittle%> <b style="color: brown">Detail</b>
+    </h3>
+    <div class="cards col-md-8 offset-1">
+      <img src="<%= data.image %>" class="card-img-top" alt="Default Pic" />
+      <div class="card-body">
+        <%= data.description %><br />
+        <%= data.location %><br />
+        &#8377;<%=data.price ? data.price.toLocaleString("en-IN") : "Price not available"%><br />
+        <%= data.country %><br />
+      </div>
+      <div class="btn-container mb-5 mt-3">
+        <div class="col-1 edit-btn">
+          <a href="/listing/edit/<%=data._id%>" class="btn btn-dark"
+            >Edit</a
+          >
+        </div>
+        <div class="col-2 del-btn">
+          <form method="post" action="/listing/<%=data._id%>?_method=DELETE">
+            <button class="btn btn-danger offset-2">Delete</button>
+          </form>
+        </div>
+      </div>
+      <hr>
+      <h2>Provide us a Review</h2>
+      <form method="post" action="/listing/<%=data._id%>/review" class="needs-validation mb-3" novalidate  >
+        <label for="customRange2" class="form-label">Rating</label>
+        <input
+          type="range"
+          class="form-range mb-4"
+          min="1"
+          max="5"
+          name="review[rating]"
+          id="customRange2"
+          required
+        />
+        <div class="form-floating">
+          <textarea
+            class="form-control"
+            name="review[content]"
+            id="floatingTextarea2"
+            style="height: 130px"
+            required
+          ></textarea>
+          <label for="floatingTextarea2">FeedBack Here</label>
+          <div class="invalid-feedback">Please Enter Valid Review</div>
+        </div>
+        <button class="btn btn-outline-success mt-4">Add</button>
+      </form> 
+      <div class="row">
+        <h2>Reviews</h2>
+        
+        <%for(let reviews of data.review) {%>
+          <div class="card col-5 me-3 mb-3">
+            <div class="card-header">
+              John
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"><%=reviews.content%></h5>
+              <p class="card-text"><i> <%=reviews.rating%> star</i></p>
+              <form method="POST" action="/listing/<%=data._id%>/review/<%=reviews._id%>?_method=DELETE">
+                <button class="btn btn-outline-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+          <%}%>
+      </div>
+      </div>
+  </div>
+</body>

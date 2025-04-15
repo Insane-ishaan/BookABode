@@ -1,0 +1,93 @@
+<%layout("/layout/boilerplate")-%>
+<body>
+  <div class="row">
+    <!-- This make the whole form as rows  -->
+    <div class="col-9 offset-1">
+      <!-- And through col class we can divide it to parts(LIke minimize it) Like here suppose if
+       screen have 12 cols in row so by doing  [col-9] it will cutt-off occupation of input from whole(12row) screen to 9rows and by 
+       offset-1 it will pushes form to rigth(or we can say away from left),basically it works as *- margin-left -*-->
+      <h2>
+        Add <span style="color: brown">N</span
+        ><span style="color: rgb(165, 126, 42)">e</span
+        ><span style="color: rgb(42, 101, 165)">w</span> Listing
+      </h2>
+      <form
+        method="post"
+        action="/listing"
+        class="needs-validation"
+        novalidate
+      >
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            name="listing[tittle]"
+            class="form-control"
+            required
+          />
+          <label for="tittle" class="form-label">Title</label>
+          <div class="valid-feedback">Valid Title</div>
+          <div class="invalid-feedback">Please enter valid Title</div>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input type="text" name="listing[image]" class="form-control" />
+          <label for="image" class="form-label">Image Url</label>
+          <p>
+            <b style="color: brown">Note:</b>If you Don't have Any Url,Then system will their Default Url to your Post
+          </p>
+        </div>
+
+        <div class="form-floating mb-3">
+          <textarea
+            class="form-control"
+            name="listing[description]"
+            style="height: 100px"
+            required
+          ></textarea>
+          <label for="description">Description</label>
+          <div class="valid-feedback">Valid Description</div>
+          <div class="invalid-feedback">Please enter valid Description</div>
+        </div>
+        <br />
+
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            name="listing[location]"
+            class="form-control"
+            required
+          />
+          <label for="location" class="form-label">Location</label>
+          <div class="valid-feedback">Valid Location</div>
+          <div class="invalid-feedback">Please enter valid Location</div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-floating mb-3">
+              <input name="listing[price]" class="form-control" required />
+              <label for="location" class="form-label">Price</label>
+              <div class="valid-feedback">Valid Price</div>
+              <div class="invalid-feedback">Please enter valid Price</div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                name="listing[country]"
+                class="form-control"
+                required
+              />
+              <label for="country" class="form-label">Country</label>
+              <div class="valid-feedback">Valid Country</div>
+              <div class="invalid-feedback">Please enter valid Country</div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Add</button>
+      </form>
+    </div>
+  </div>
+</body>

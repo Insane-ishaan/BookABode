@@ -1,0 +1,20 @@
+<%layout("/layout/boilerplate")-%>
+<body>
+  <!--  <form action="/new"><button>Add New</button></form> -->
+  <ul>
+    <div class="Card-parent row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+      <% for(let data of allData ){ %>
+      <a href="/listing/<%=data.id%>" style="text-decoration: none">
+        <div class="cards col">
+          <img src="<%=data.image%>" class="card-img-top" alt="default img" />
+          <div class="card-img-overlay"></div>
+          <div class="card-body">
+            <b><%= data.tittle %></b>
+            <p class="card-text">&#x20b9;<%=data.price.toLocaleString("en-IN")%> /night</p>
+          </div>
+        </div>
+      </a>
+      <% } %>
+    </div>
+  </ul>
+</body>

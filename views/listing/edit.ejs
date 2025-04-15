@@ -1,0 +1,94 @@
+<%layout("/layout/boilerplate")-%>
+<body>
+  <div class="row">
+    <div class="col-md-8 offset-1">
+      <form
+        method="POST"
+        action="/listing/<%= data._id %>?_method=PUT"
+        novalidate
+        class="needs-validation"
+      >
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            name="listing[tittle]"
+            value="<%= data.tittle %>"
+            class="form-control"
+            required
+          />
+          <label for="tittle" class="form-label">Title</label>
+          <div class="valid-feedback">Valid Title</div>
+          <div class="invalid-feedback">Please enter valid Title</div>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            value="<%= data.image %>"
+            name="listing[image]"
+            class="form-control"
+            required
+          />
+          <label for="image" class="form-label">Image</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <textarea name="listing[description]" class="form-control" required>
+          <%= data.description %></textarea
+          >
+          <label for="description" class="form-label">Description</label>
+          <div class="valid-feedback">Valid Title</div>
+          <div class="invalid-feedback">Please enter valid Title</div>
+        </div>
+
+        <div class="row">
+          <div class="form-floating mb-3 col-md-4">
+            <span style="position: absolute; top: 50%; transform: translateY(-28%); font-size: 1.2rem;">₹</span>
+             <!-- Here i try i make  
+            ₹ sign permanet in form page but its position is not fixing correctly therefore i implement starWith logic in index.js its put route 
+            which automatically paste ruppe sign in front of price after updataion-->
+            <input
+              name="listing[price]"
+              value="<%= data.price %>"
+              class="form-control"
+              required
+            />
+            <label for="price" class="form-label">Price</label>
+            <div class="valid-feedback">Valid Title</div>
+            <div class="invalid-feedback">Please enter valid Title</div>
+          </div>
+
+          <div class="form-floating mb-3 col-md-8">
+            <input
+              type="text"
+              name="listing[location]"
+              value="<%= data.location %>"
+              class="form-control"
+              required
+            />
+            <label for="location" class="form-label">Location</label>
+            <div class="valid-feedback">Valid Title</div>
+            <div class="invalid-feedback">Please enter valid Title</div>
+          </div>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            name="listing[country]"
+            value="<%= data.country %>"
+            class="form-control"
+            required
+          />
+          <label for="country" class="form-label">Country</label>
+          <div class="valid-feedback">Valid Title</div>
+          <div class="invalid-feedback">Please enter valid Title</div>
+        </div>
+
+        <button type="submit" class="btn btn-dark" style="border: none">
+          Edit
+        </button>
+      </form>
+    </div>
+  </div>
+</body>
