@@ -1,16 +1,75 @@
 <%layout("/layout/boilerplate")-%>
 <body>
+  <div id="filters">
+    <div class="filter">
+      <div class="filter-icon"><a href="/listing/category?type=mountains"><i class="fa-solid fa-mountain-sun"></i></div>
+      <p class="context">Mountains</p>
+    </a>
+    </div>
+    <div class="filter">
+      <div class="filter-icon"> <a href="/listing/category?type=beach">
+      <i class="fa-solid fa-umbrella-beach"></i></div>
+      <p class="context">Beach</p>
+      </a>
+    </div>
+    <div class="filter">
+      <div class="filter-icon"> <a href="/listing/category?type=foriegn">
+        <i class="fa-solid fa-plane-departure"></i></div>
+      <p class="context">Foriegn</p>
+      </a> 
+    </div>
+    <div class="filter">
+      <div class="filter-icon"><a href="/listing/category?type=fort">
+        <i class="fa-solid fa-archway"></i></div>
+        <p class="context">Fort</p>
+      </a> 
+    </div>
+    <div class="filter">
+      <div class="filter-icon"><a href="/listing/category?type=winters">
+        <i class="fa-solid fa-snowflake"></i></div>
+      <p class="context">Winters</p>
+      </a> 
+    </div>
+    <div class="filter">
+      <div class="filter-icon"><a href="/listing/category?type=sunset">
+        <i class="fa-solid fa-cloud-moon"></i></div>
+      <p class="context">Sunset</p>
+      </a> 
+    </div>
+    <div class="filter">
+      <div class="filter-icon"><a href="/listing/category?type=festivals">
+        <i class="fa-solid fa-ranking-star"></i></div>
+      <p class="context">Festivals</p>
+      </a> 
+    </div>
+      <div class="form-check form-switch form-check-reverse mt-2">
+        <label class="form-check-label" for="switchCheckDefault">Wihtout Taxes</label>
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="switchCheckDefault"
+        />
+    </div>
+  </div>      
+
   <!--  <form action="/new"><button>Add New</button></form> -->
   <ul>
-    <div class="Card-parent row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <div class="Card-parent row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-4">
       <% for(let data of allData ){ %>
-      <a href="/listing/<%=data.id%>" style="text-decoration: none">
+      <a href="/listing/<%=data._id%>" style="text-decoration: none">
         <div class="cards col">
-          <img src="<%=data.image%>" class="card-img-top" alt="default img" />
-          <div class="card-img-overlay"></div>
+          <img
+            src="<%= data.image.url %>"
+            class="card-img-top"
+            alt="default img"
+          />
           <div class="card-body">
             <b><%= data.tittle %></b>
-            <p class="card-text">&#x20b9;<%=data.price.toLocaleString("en-IN")%> /night</p>
+            <p class="card-text">
+              &#x20b9;<%=data.price.toLocaleString("en-IN")%> /night
+              <i class="taxation-context ms-3">+ 18% GST</i>
+            </p>
           </div>
         </div>
       </a>

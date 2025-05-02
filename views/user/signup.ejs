@@ -1,0 +1,52 @@
+<%layout("/layout/boilerplate")-%>
+<body>
+    <div class="row">
+        <div class="col-6 offset-3">
+            <h2>
+                S<span style="color: brown">i</span
+                >g<span style="color: rgb(165, 126, 42)">n</span
+                ><span style="color: rgb(42, 101, 165)">U</span> p
+              </h2>
+              <form
+        method="post"
+        action="/signup"
+        class="needs-validation"
+        novalidate
+      >
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            name="username"
+            class="form-control"
+            required
+          />
+          <label for="username" class="form-label">Username</label>
+          <div class="invalid-feedback">Please enter valid username</div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input
+              type="text"
+              name="email"
+              class="form-control"
+              required
+            />
+            <label for="email" class="form-label"><sup>@</sup>Email</label>
+            <div class="invalid-feedback">Please enter valid email</div>
+          </div>
+
+          <div class="form-floating mb-3">
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              required
+            />
+            <label for="password" class="form-label">Password</label>
+            <div class="invalid-feedback">Please enter valid password</div>
+          </div>
+          <button type="submit" class="btn btn-success">signUp</button>
+        </form>
+        </div>
+    </div>
+</body>

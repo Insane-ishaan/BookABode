@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const asyncWrapp = require("../utils/asyncWrap.js");
 const { ValidateReview } = require("../serverValidationJoi.js");
-const Listing = require("../models/modelListing.js");
-const Review = require("../models/modelReviews.js");
+const reviewCallbacks = require("../Controller/reviewCallBacks.js");
 const errorHandler = require("../utils/errorHandler.js");
+const {isLogged,isAuthor} = require("../middlewares.js");
 
 const serverSideValitdationReview = (req, res, next) => {
   let validatingEnterData = ValidateReview.validate(req.body.details);
@@ -20,33 +20,16 @@ const serverSideValitdationReview = (req, res, next) => {
 //CREATE ROUTE FOR REVIEWS
 router.post(
   "/",
+  isLogged,
   serverSideValitdationReview,
-  asyncWrapp(async (req, res) => {
-    let { id } = req.params;
-    let card = await Listing.findById(id);
-    let newReview = new Review(req.body.review);
-
-    card.review.push(newReview); //Push this new review into cards.review array
-
-    await card.save();
-    await newReview.save();
-
-    res.redirect(`/listing/${id}`);
-  })
-);
+  asyncWrapp(reviewCallbacks.createPostLogic));
 
 //DELETE ROUTE(FOR REVIEW) TO DELETE REVIEWS CARD
 router.delete(
   "/:reviewId",
+  isLogged,
+  isAuthor,
   serverSideValitdationReview,
-  asyncWrapp(async (req, res) => {
-    let { id, reviewId } = req.params;
-
-    await Listing.findByIdAndUpdate(id, { $pull: { review: reviewId } }); //FROM REVIEW ARRAY THE THING THAT MATCHES REVIEWID REMOVE THEM
-    await Review.findByIdAndDelete(reviewId);
-
-    res.redirect(`/listing/${id}`);
-  })
-);
+  asyncWrapp(reviewCallbacks.delete));
 
 module.exports = router;

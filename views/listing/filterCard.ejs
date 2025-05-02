@@ -1,0 +1,31 @@
+<%layout("/layout/boilerplate")-%>
+<body>
+    <h3 class="offset-1"><%=type.toUpperCase()%></h3>
+    <ul>
+        <%if(typeCard && typeCard.length > 0 ){%>
+        <div class="Card-parent row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3">
+          <% for(let data of typeCard ){ %>
+          <a href="/listing/<%=data._id%>" style="text-decoration: none">
+            <div class="cards col">
+              <img
+                src="<%= data.image.url %>"
+                class="card-img-top"
+                alt="default img"
+              />
+              <div class="card-body">
+                <b><%= data.tittle %></b>
+                <p class="card-text">
+                  &#x20b9;<%=data.price.toLocaleString("en-IN")%> /night
+                  <i class="taxation-context ms-3">+ 18% GST</i>
+                </p>
+              </div>
+            </div>
+          </a>
+          <% } %>
+        </div>
+      </ul>
+      <%}else{%>
+        <h3 class="offset-4 mt-4">Not yet added here</h3>
+        <img src="/ERRORIMG.jpg" alt="error-img" class="filter-img">
+        <%}%>
+</body>

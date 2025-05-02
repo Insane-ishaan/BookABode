@@ -1,74 +1,141 @@
-<%layout("/layout/boilerplate")-%>
-<body>
-  <a class=".icon-a" href="/listing"><i class="fa-solid fa-arrow-left"></i></a>
-  <div class=".Card-parent row row-cols-lg-10">
-    <h3 class="offset-1">
-      <%=data.tittle%> <b style="color: brown">Detail</b>
-    </h3>
-    <div class="cards col-md-8 offset-1">
-      <img src="<%= data.image %>" class="card-img-top" alt="Default Pic" />
-      <div class="card-body">
-        <%= data.description %><br />
-        <%= data.location %><br />
-        &#8377;<%=data.price ? data.price.toLocaleString("en-IN") : "Price not available"%><br />
-        <%= data.country %><br />
+  <%layout("/layout/boilerplate")-%>
+  <script>
+    let mapApi = "<%=process.env.MAP_API_TOKEN%>";
+    let mapCoordinates = <%- JSON.stringify(data) %>;
+  </script>
+  <body>
+    <a class=".icon-a" href="/listing"><i class="fa-solid fa-arrow-left"></i></a>
+    <div class=".Card-parent row row-cols-lg-10">
+      <div class="row row-cols-lg-12">
+        <h3 class="offset-1 col-5">
+          <%=data.tittle%> <b style="color: brown">Detail</b>
+        </h3>
+        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='%236c757d'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb" class="col-6">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">Category</li>
+            <li class="breadcrumb-item active" aria-current="page"><%= data.category %></li>
+          </ol>
+        </nav>
       </div>
-      <div class="btn-container mb-5 mt-3">
-        <div class="col-1 edit-btn">
-          <a href="/listing/edit/<%=data._id%>" class="btn btn-dark"
-            >Edit</a
-          >
+      <div class="cards col-md-8 offset-1">
+        <img src="<%= data.image.url %>" class="card-img-top " alt="Default Pic"/>
+        <div class="card-body">
+          <b>~ Created by <%= data.owner.username %></b><br />
+          <%= data.description %><br />
+          <%= data.location %>, <%= data.country %><br />
+          &#8377;<%=data.price ? data.price.toLocaleString("en-IN") : "Price not available" %> <br />
         </div>
-        <div class="col-2 del-btn">
-          <form method="post" action="/listing/<%=data._id%>?_method=DELETE">
-            <button class="btn btn-danger offset-2">Delete</button>
-          </form>
+        <%if(currUser && currUser._id.equals(data.owner.id)){%>
+        <div class="btn-container mb-5 mt-3">
+          <div class="col-1 edit-btn">
+            <a href="/listing/edit/<%=data._id%>" class="btn btn-dark">Edit</a>
+          </div>
+          <div class="col-2 del-btn">
+            <form method="post" action="/listing/<%=data._id%>?_method=DELETE">
+              <button class="btn btn-danger offset-2">Delete</button>
+            </form>
+          </div>
         </div>
-      </div>
-      <hr>
-      <h2>Provide us a Review</h2>
-      <form method="post" action="/listing/<%=data._id%>/review" class="needs-validation mb-3" novalidate  >
-        <label for="customRange2" class="form-label">Rating</label>
-        <input
-          type="range"
-          class="form-range mb-4"
-          min="1"
-          max="5"
-          name="review[rating]"
-          id="customRange2"
-          required
-        />
-        <div class="form-floating">
-          <textarea
-            class="form-control"
-            name="review[content]"
-            id="floatingTextarea2"
-            style="height: 130px"
-            required
-          ></textarea>
-          <label for="floatingTextarea2">FeedBack Here</label>
-          <div class="invalid-feedback">Please Enter Valid Review</div>
-        </div>
-        <button class="btn btn-outline-success mt-4">Add</button>
-      </form> 
-      <div class="row">
-        <h2>Reviews</h2>
-        
-        <%for(let reviews of data.review) {%>
+        <%}%>
+        <hr />
+        <%if(currUser) {%>
+        <h2>Provide us a Review</h2>
+        <form
+          method="post"
+          action="/listing/<%=data._id%>/review"
+          class="needs-validation mb-3"
+          novalidate
+        >
+          <fieldset class="starability-checkmark mb-4">
+            <legend>Rating:</legend>
+            <input
+              type="radio"
+              id="no-rate"
+              class="input-no-rate"
+              name="review[rating]"
+              value="1"
+              checked
+              aria-label="No rating."
+            />
+            <input
+              type="radio"
+              id="second-rate1"
+              name="review[rating]"
+              value="1"
+            />
+            <label for="second-rate1" title="Terrible">1 star</label>
+            <input
+              type="radio"
+              id="second-rate2"
+              name="review[rating]"
+              value="2"
+            />
+            <label for="second-rate2" title="Not good">2 stars</label>
+            <input
+              type="radio"
+              id="second-rate3"
+              name="review[rating]"
+              value="3"
+            />
+            <label for="second-rate3" title="Average">3 stars</label>
+            <input
+              type="radio"
+              id="second-rate4"
+              name="review[rating]"
+              value="4"
+            />
+            <label for="second-rate4" title="Very good">4 stars</label>
+            <input
+              type="radio"
+              id="second-rate5"
+              name="review[rating]"
+              value="5"
+            />
+            <label for="second-rate5" title="Amazing">5 stars</label>
+          </fieldset>
+          <div class="form-floating">
+            <textarea
+              class="form-control"
+              name="review[content]"
+              id="floatingTextarea2"
+              style="height: 130px"
+              required
+            ></textarea>
+            <label for="floatingTextarea2">FeedBack Here</label>
+            <div class="invalid-feedback">Please Enter Valid Review</div>
+          </div>
+          <button class="btn btn-outline-success mt-4">Add</button>
+        </form>
+        <%}%>
+        <div class="row">
+          <%if(data.review && data.review.length > 0){%>
+          <h2>Reviews</h2>
+          <%}%> <%for(let reviews of data.review) {%>
           <div class="card col-5 me-3 mb-3">
             <div class="card-header">
-              John
+              <i>@</i><%=reviews.author.username[0].toUpperCase() +
+              reviews.author.username.slice(1) %>
             </div>
             <div class="card-body">
               <h5 class="card-title"><%=reviews.content%></h5>
-              <p class="card-text"><i> <%=reviews.rating%> star</i></p>
-              <form method="POST" action="/listing/<%=data._id%>/review/<%=reviews._id%>?_method=DELETE">
+              <p class="starability-result" data-rating="<%=reviews.rating%>"></p>
+              <%if(currUser && currUser._id.equals(reviews.author.id)){%>
+              <form
+                method="POST"
+                action="/listing/<%=data._id%>/review/<%=reviews._id%>?_method=DELETE">
                 <button class="btn btn-outline-danger">Delete</button>
               </form>
+              <%}%>
             </div>
           </div>
           <%}%>
+        </div>
+        <h2>Where you'll be</h2>
+        <div id="map"></div>
       </div>
-      </div>
-  </div>
-</body>
+    </div>
+    <script src="/map.js"></script>
+      <br />
+      <br />
+      <br />
+  </body>

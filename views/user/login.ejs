@@ -1,0 +1,28 @@
+<%layout("/layout/boilerplate")-%>
+<body>
+  <div class="row">
+    <div class="col-6 offset-3">
+      <h2>
+        L<span style="color: brown">o</span>g<span
+          style="color: rgb(165, 126, 42)"
+          >i</span
+        ><span style="color: rgb(42, 101, 165)">n</span>
+      </h2>
+      <form method="post" action="/login" class="needs-validation" novalidate>
+        <div class="form-floating mb-3">
+          <input type="text" name="username" class="form-control" required />
+          <label for="username" class="form-label">Username</label>
+          <div class="invalid-feedback">Please your username</div>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="password" name="password" class="form-control" required />
+            <label for="password" class="form-label">Password</label>
+            <div class="invalid-feedback">Please your password</div>
+          </div>
+
+          <button type="submit" class="btn btn-outline-success">Login</button>
+      </form>
+    </div>
+  </div>
+</body>

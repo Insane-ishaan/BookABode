@@ -10,15 +10,16 @@ async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/Airbnb");
 }
 
-const db = async () => {
+const dbDataInsertion = async () => {
   try {
+    lists.data = lists.data.map((list) => ({ ...list, owner:"6804ce4cd659c4d35c48d6a0"}));
     await listingData.insertMany(lists.data);
     console.log("data addded");
   } catch (e) {
     console.log(e);
   } /*IF YOU FACE ANY PROBLEM RELATED TO DATA JUST DELETE ALL STORED DATA IN INIT.JS ONCE and AFTER FIXING THAT CAUSE a=AGAIN INSERT ALL*/
- /*  await listingData.deleteMany({});
+  /* await listingData.deleteMany({});
   console.log("data deleted sucessfully"); */
 };
 
-db();
+dbDataInsertion();

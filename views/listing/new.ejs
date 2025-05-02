@@ -16,6 +16,7 @@
         action="/listing"
         class="needs-validation"
         novalidate
+        enctype="multipart/form-data"
       >
         <div class="form-floating mb-3">
           <input
@@ -30,14 +31,11 @@
         </div>
 
         <div class="form-floating mb-3">
-          <input type="text" name="listing[image]" class="form-control" />
+          <input type="file" name="listing[image]" class="form-control" required/>
           <label for="image" class="form-label">Image Url</label>
-          <p>
-            <b style="color: brown">Note:</b>If you Don't have Any Url,Then system will their Default Url to your Post
-          </p>
         </div>
 
-        <div class="form-floating mb-3">
+        <div class="form-floating">
           <textarea
             class="form-control"
             name="listing[description]"
@@ -71,7 +69,7 @@
               <div class="invalid-feedback">Please enter valid Price</div>
             </div>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-4">
             <div class="form-floating mb-3">
               <input
                 type="text"
@@ -84,10 +82,25 @@
               <div class="invalid-feedback">Please enter valid Country</div>
             </div>
           </div>
+          <div class="dropdown col-md-4">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" required>
+              Select From Given Category
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" data-category="mountains">Mountains</a></li>
+              <li><a class="dropdown-item" href="#" data-category="beach" >Beach</a></li>
+              <li><a class="dropdown-item" href="#" data-category="foriegn">Foriegn</a></li>
+              <li><a class="dropdown-item" href="#" data-category="fort">Fort</a></li>
+              <li><a class="dropdown-item" href="#" data-category="winters">Winters</a></li>
+              <li><a class="dropdown-item" href="#" data-category="sunset">Sunset</a></li>
+              <li><a class="dropdown-item" href="#" data-category="festivals">Festivals</a></li>
+            </ul>
+          </div>
+          <input type="hidden" class="form-control" name="listing[category]" id="selectedCategory" aria-describedby="emailHelp">
         </div>
-
         <button type="submit" class="btn btn-dark">Add</button>
       </form>
     </div>
   </div>
+  <script src="/catergoryLogic.js"></script>
 </body>

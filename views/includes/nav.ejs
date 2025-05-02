@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#"><i class="fa-regular fa-compass"></i></a>
+    <a class="navbar-brand" href="/listing"><i class="fa-regular fa-compass"></i></a>
     <button
       class="navbar-toggler"
       type="button"
@@ -14,9 +14,25 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link nav-opts" aria-current="page" href="/listing">My Bode</a>
-        <a class="nav-link nav-opts" href="/listing/new">New Trip</a>
+        <a class="nav-link nav-opts" aria-current="page" href="/listing">MyBode</a>
       </div>
+      <div class="navbar-nav ms-4 me-auto">
+        <form class="d-flex" role="search">
+          <input class="form-control me-2 search-box" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-primary search-box-btn mt-1 " type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+        </form>
+      </div>
+      <div class="ms-auto ms-auto me-auto nav-tag"><i class="fa-solid fa-plane nav-plane mt-2"></i><h1 class="book-heading"><span class="B" >B</span><span class="O" >o</span><span class="O2" >o</span><span class="K" >k</span><span style="color: rgb(23, 122, 228)" class="A" >A</span><span class="B2" >B</span><span class="O3">o</span><span class="D" >d</span><span class="E" >e</span></h1></div>
+      <div class="navbar-nav ms-auto">
+        <a class="nav-link nav-opts" href="/listing/new">New</a>
+        <%if(!currUser){%>
+        <a class="nav-link nav-opts" href="/signup"><b>SignUp</b></a>
+        <a class="nav-link nav-opts" href="/login"><b>Login</b></a>
+        <%}%>
+        <%if(currUser){%>
+        <a class="nav-link nav-opts" href="/logout">Logout</a>
+        <%}%>
+        </div>
     </div>
   </div>
 </nav>
